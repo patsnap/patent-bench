@@ -38,6 +38,7 @@
 | `picture_type` | string | 图像类型：`无效`（来自无效宣告程序） |
 | `one_level_loc` | string | 洛迦诺分类一级码（双重分类用 ` OR ` 连接，如 `02 OR 29`） |
 | `two_level_loc` | string | 洛迦诺分类二级码（双重分类用 ` OR ` 连接，如 `02-03 OR 29-02`） |
+| `country` | list[str] | 目标法域 (例如. `["CN"]`) |
 | `version` | string | 数据集版本 |
 
 > **关于专利公开号（PN）：** 所有公开号已统一转为 PatSnap 标准化 PN 格式。
