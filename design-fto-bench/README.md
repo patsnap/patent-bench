@@ -157,19 +157,6 @@ Results from PatSnap Design FTO AI Agent evaluated on 261 samples (full internal
 
 - **Subset of invalidation data**: This public release contains only a curated subset of patent invalidation cases, not the full internal dataset. Future releases will expand to more comprehensive invalidation data covering additional patent offices.
 
-## Citation
-
-If you use this dataset, please cite:
-
-```bibtex
-@dataset{patsnap_design_fto_bench_2026,
-  title={PatSnap Design FTO Bench},
-  author={PatSnap},
-  year={2026},
-  note={A Bench for evaluating design patent freedom-to-operate image retrieval systems}
-}
-```
-
 ## License
 
 This dataset is released under [CC BY-NC 4.0](https://creativecommons.org/licenses/by-nc/4.0/). It may be used for research and non-commercial evaluation purposes.
