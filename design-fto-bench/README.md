@@ -12,7 +12,6 @@ A Bench for evaluating **design patent freedom-to-operate (FTO)** image retrieva
 | **Source** | Real patent invalidation proceedings |
 | **Image types** | Product photos ↔ Patent line drawings (cross-modal) |
 | **LOC coverage** | 22 Locarno classification sections |
-| **Jurisdiction** | CN |
 | **Ground truth** | Human-verified infringing patent image pairs |
 | **License** | CC BY-NC 4.0 |
 
@@ -89,12 +88,6 @@ Each sample's ground truth is the `target_pns` list — patent publication numbe
 | 16 | Photography & optics | 3 |
 | Others | (11 additional sections) | 13 |
 | **Total** | | **91** |
-
-### By Jurisdiction
-
-| Jurisdiction | Count | Percentage |
-|-------------|-------|------------|
-| CN | 91 | 100% |
 
 ## Dataset Construction
 
