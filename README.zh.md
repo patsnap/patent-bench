@@ -16,7 +16,7 @@
 | Bench | 任务 | 样本数 | 状态 |
 |---|---|:---:|---|
 | [**design-fto-bench**](./design-fto-bench) | 外观设计专利跨模态图像检索 | 91 | 已发布 (v1.1) |
-| *novelty-search-bench* | 专利新颖性检索（Prior-art retrieval） | — | 规划中 |
+| *novelty-search-bench* | 专利新颖性检索 | — | 规划中 |
 | *oar-bench* | 专利审查意见答复（OAR）生成 | — | 规划中 |
 | *drafting-bench* | 专利申请文件撰写 | — | 规划中 |
 | *…更多 patent Bench 陆续推出* | | | |
