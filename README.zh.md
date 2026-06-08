@@ -154,4 +154,4 @@ python ../common/metrics/novelty_metrics.py \
 |---|---|---|
 | `novelty-search-bench` | Zhang et al. 2025 — *Research on Evaluation Methods for Patent Novelty Search Systems and Empirical Analysis* | [2508.17782](https://arxiv.org/abs/2508.17782) |
 
-> ⚠️ **`novelty-search-bench` 论文样本数说明。** arXiv 论文（2025-08）的实验是在约 1,000 篇专利的早期内部评测集上做的；该评测集发表后已做过一次重要扩展和清洗，当前公开版（569 条）抽样自最新的内部版本。**我们正在用最新的内部数据集重新跑实验，新版论文即将提交。** 新版论文上线前，论文里的数字应作为方法学参考，不应直接当作本公开数据集的 baseline。
+> ⚠️ **`novelty-search-bench` 论文说明。** 数据集自论文（arXiv 2025-08）发表后已做过更新，新版论文撰写中。

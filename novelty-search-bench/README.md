@@ -8,7 +8,7 @@ The Bench is **deliberately designed as a 50% public release of an internal full
 
 > 📄 **Companion paper:** *Research on Evaluation Methods for Patent Novelty Search Systems and Empirical Analysis* — Shu Zhang, LiSha Zhang, Kai Duan, XinKai Sun · arXiv [**2508.17782**](https://arxiv.org/abs/2508.17782) (Aug 2025). The paper details the dataset-construction methodology used to build this Bench (examiner citations + X-type citations from technically consistent family patents), the evaluation protocol (invention description as input, Top-k Detection Rate + Recall as core metrics), and a multi-dimensional analysis framework along language / IPC / filing-jurisdiction axes.
 >
-> ⚠️ **Note on paper-vs-release sample count.** The paper (arXiv, Aug 2025) ran its experiments on an early internal evaluation set of about **1,000 patents**. That internal set has since gone through a substantial expansion and cleanup pass; the present public release (569 samples) is sampled from the latest internal version, not from the snapshot used in the paper. **We are re-running the experiments on the current internal set and a revised paper will be submitted shortly.** Until the revision appears on arXiv, treat the paper's numerical results as a methodological reference, not as a baseline for this dataset.
+> ⚠️ **Note on the paper.** The dataset has been updated since the paper (arXiv, Aug 2025) was published; a revised paper is in preparation.
 
 ## Dataset Overview
 

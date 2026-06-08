@@ -20,7 +20,7 @@ and this project follows the release windows announced in the top-level [README]
   - Ground truth: examiner-cited X-type references; for `type=family`, also includes X references cited by examiners of the query patent's cross-jurisdiction family members
   - Schema preserves four GT fields (`pn_x` / `pn_x_family` / `pn_family_x` / `pn_family_x_family`) so the same `build_gt` formula applies uniformly to both sample types
   - Bilingual README (`README.md` + `README.zh.md`)
-  - Companion methodology paper: Zhang, Zhang, Duan, Sun — *Research on Evaluation Methods for Patent Novelty Search Systems and Empirical Analysis*, arXiv [2508.17782](https://arxiv.org/abs/2508.17782) (Aug 2025). The paper experiments on an early internal evaluation set of about 1,000 patents; that internal set has since been substantially expanded and cleaned up, and the present public release (569) is sampled from the latest internal version. A revised paper based on the current internal set is being prepared.
+  - Companion methodology paper: Zhang, Zhang, Duan, Sun — *Research on Evaluation Methods for Patent Novelty Search Systems and Empirical Analysis*, arXiv [2508.17782](https://arxiv.org/abs/2508.17782) (Aug 2025). The dataset has been updated since the paper was published; a revised paper is in preparation.
 - **`common/metrics/novelty_metrics.py`** — new metric library for novelty retrieval
   - `build_gt(sample, collapsed=False)` builds the per-sample GT union (`pn_x ∪ pn_family_x`) or family-expanded GT (`pn_x_family ∪ pn_family_x_family`)
   - `compute_metrics(gt, ranked_list)` reports `top@K` and `recall@K` for K ∈ {1, 3, 5, 10, 20, 50, 100}

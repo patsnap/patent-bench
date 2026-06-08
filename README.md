@@ -159,4 +159,4 @@ Sub-Benches accompanied by a published methodology paper — please also cite th
 |---|---|---|
 | `novelty-search-bench` | Zhang et al. 2025 — *Research on Evaluation Methods for Patent Novelty Search Systems and Empirical Analysis* | [2508.17782](https://arxiv.org/abs/2508.17782) |
 
-> ⚠️ **`novelty-search-bench` paper sample-count caveat.** The arXiv paper (Aug 2025) ran its experiments on an early internal evaluation set of about 1,000 patents. That internal set has since gone through a substantial expansion and cleanup pass; the present public release (569 samples) is sampled from the latest internal version. We are re-running the experiments on the current internal set and a revised paper will be submitted shortly. Until the revision appears on arXiv, treat the paper's numerical results as a methodological reference, not as a baseline for this dataset.
+> ⚠️ **`novelty-search-bench` paper note.** The dataset has been updated since the paper (arXiv, Aug 2025) was published; a revised paper is in preparation.
