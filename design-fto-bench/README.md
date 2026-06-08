@@ -12,6 +12,7 @@ A Bench for evaluating **design patent freedom-to-operate (FTO)** image retrieva
 | **Source** | Real patent invalidation proceedings |
 | **Image types** | Product photos ↔ Patent line drawings (cross-modal) |
 | **LOC coverage** | 22 Locarno classification sections |
+| **Jurisdiction** | CN |
 | **Ground truth** | Human-verified infringing patent image pairs |
 | **License** | CC BY-NC 4.0 |
 
@@ -55,8 +56,8 @@ Each sample's ground truth is the `target_pns` list — patent publication numbe
 
 | Metric | Description | Focus |
 |--------|-------------|-------|
-| **Hit Rate @ K** | % of samples with ≥1 GT patent in top K results (K=10, 50, 100, 200) | Retrieval ranking precision |
-| **PRES Score** | % of samples where the agent's final infringement report correctly identifies a GT patent | End-to-end judgment quality |
+| **Hit Rate @ K** | % of samples with ≥1 GT patent in top K results (K=10, 50, 100, 200) | Detection rate |
+| **PRES @ N** | Patent Retrieval Evaluation Score (Magdy & Jones 2010, with miss-penalty correction): a single score in `[0, 1]` that jointly captures **how many** GT patents are retrieved within top-N and **how highly** they are ranked. PRES = 1.0 means every GT patent appears at the very top; PRES = 0 means none are found within N. Default N = 200. | Retrieval ranking quality |
 
 > The primary evaluation range is **Top@200**, which provides sufficient coverage for design patent visual similarity retrieval while remaining within practical human review capacity.
 
@@ -88,6 +89,12 @@ Each sample's ground truth is the `target_pns` list — patent publication numbe
 | 16 | Photography & optics | 3 |
 | Others | (11 additional sections) | 13 |
 | **Total** | | **91** |
+
+### By Jurisdiction
+
+| Jurisdiction | Count | Percentage |
+|-------------|-------|------------|
+| CN | 91 | 100% |
 
 ## Dataset Construction
 
@@ -156,6 +163,19 @@ Results from PatSnap Design FTO AI Agent evaluated on 261 samples (full internal
 ## Limitations
 
 - **Subset of invalidation data**: This public release contains only a curated subset of patent invalidation cases, not the full internal dataset. Future releases will expand to more comprehensive invalidation data covering additional patent offices.
+
+## Citation
+
+If you use this dataset, please cite:
+
+```bibtex
+@dataset{patsnap_design_fto_bench_2026,
+  title={PatSnap Design FTO Bench},
+  author={PatSnap},
+  year={2026},
+  note={A Bench for evaluating design patent freedom-to-operate image retrieval systems}
+}
+```
 
 ## License
 

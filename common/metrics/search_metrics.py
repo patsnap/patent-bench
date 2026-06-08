@@ -14,6 +14,12 @@ Usage as a CLI (computes metrics over a Bench's JSONL dataset):
         --results my_results.json \\
         --match-mode pn --k 200 --N 200
 
+    # For other benches, override the GT field name explicitly:
+    python search_metrics.py \\
+        --dataset ../../<other-bench>/data/test.jsonl \\
+        --results my_results.json \\
+        --target-field <gt_field_name> --k 100 --N 100
+
 Where `my_results.json` is:
     {"<sample_id>": ["<ranked id 1>", "<ranked id 2>", ...], ...}
 
@@ -111,35 +117,83 @@ def _main():
     parser.add_argument("--results", required=True,
                         help='Ranked-results JSON: {"<sample_id>": ["<id1>", "<id2>", ...], ...}')
     parser.add_argument("--match-mode", choices=["pn", "img-id"], default="pn",
-                        help="Match against target_pns (default) or target_img_ids.")
+                        help="Match against target_pns (default) or target_img_ids. "
+                             "Ignored when --target-field is supplied.")
+    parser.add_argument("--target-field",
+                        help="Explicit name of the GT field in each sample (e.g. 'pn_x'). "
+                             "Overrides --match-mode; lets the same script serve any bench whose "
+                             "JSONL uses a different GT field name.")
     parser.add_argument("--k", type=int, default=200, help="Hit Rate cutoff (default: 200).")
     parser.add_argument("--N", type=int, default=200, help="PRES retrieval depth (default: 200).")
+    parser.add_argument("--allow-partial", action="store_true",
+                        help="Debug flag: average only over samples that have a ranked list. "
+                             "By default (strict / leaderboard mode) missing samples are scored 0, "
+                             "so the denominator is the full dataset size. NEVER pass this flag "
+                             "when reporting numbers on a leaderboard.")
     args = parser.parse_args()
 
     with open(args.dataset, "r", encoding="utf-8") as f:
         dataset = [json.loads(line) for line in f if line.strip()]
     with open(args.results, "r", encoding="utf-8") as f:
-        results = {str(k): list(v) for k, v in json.load(f).items()}
+        raw_results = json.load(f)
+    if not isinstance(raw_results, dict):
+        raise SystemExit(
+            f"Results file must be a JSON object mapping sample id → ranked list of IDs, "
+            f"but the top-level value is {type(raw_results).__name__}."
+        )
+    # Schema fail-fast: each value must be a list of str/int. Without this check,
+    # a stray string value would be silently iterated character-by-character and
+    # the run would report 0.00% with no error — a silent failure that's lethal
+    # for leaderboard reporting.
+    results = {}
+    for sid, ranked in raw_results.items():
+        if not isinstance(ranked, list):
+            raise SystemExit(
+                f"Result for id={sid!r} must be a list of ID strings, got "
+                f"{type(ranked).__name__}. Did you write a single string instead "
+                f"of a one-element list? (e.g. \"id\": \"CN1234A\" → "
+                f"\"id\": [\"CN1234A\"])"
+            )
+        bad = [(i, item) for i, item in enumerate(ranked) if not isinstance(item, (str, int))]
+        if bad:
+            i, item = bad[0]
+            raise SystemExit(
+                f"Result for id={sid!r}[{i}] must be str or int, got "
+                f"{type(item).__name__} ({item!r}). All elements in a ranked list "
+                f"must be ID strings (or ints)."
+            )
+        results[str(sid)] = list(ranked)
 
-    hit_vals, pres_vals, missing = [], [], 0
-    target_field = "target_pns" if args.match_mode == "pn" else "target_img_ids"
+    hit_vals, pres_vals, missing, no_gt = [], [], 0, 0
+    if args.target_field:
+        target_field = args.target_field
+    else:
+        target_field = "target_pns" if args.match_mode == "pn" else "target_img_ids"
     for s in dataset:
         ranked = results.get(str(s["id"]))
         if ranked is None:
             missing += 1
-            continue
+            if args.allow_partial:
+                continue
+            # Strict mode: missing submission counts as 0 — denominator stays len(dataset)
+            ranked = []
         hr = hit_rate_at_k(s[target_field], ranked, k=args.k)
         pr = calc_pres(s[target_field], ranked, N=args.N)
-        if hr is not None:
-            hit_vals.append(hr)
+        if hr is None:
+            no_gt += 1
+            continue
+        hit_vals.append(hr)
         if pr is not None:
             pres_vals.append(pr)
 
+    mode = "PARTIAL (debug)" if args.allow_partial else "STRICT (leaderboard)"
     print(f"Dataset          : {args.dataset} ({len(dataset)} samples)")
     print(f"Results file     : {args.results}")
     print(f"Match mode       : {args.match_mode}")
+    print(f"Scoring mode     : {mode}")
     print(f"Samples scored   : {len(hit_vals)}")
-    print(f"Missing in input : {missing}")
+    print(f"Skipped (no GT)  : {no_gt}")
+    print(f"Missing in input : {missing}" + ("  (scored 0)" if not args.allow_partial else "  (skipped)"))
     print("-" * 48)
     print(f"Hit Rate @ {args.k:<3}  : {(mean(hit_vals) if hit_vals else 0)*100:.2f}%")
     print(f"PRES      @ {args.N:<3}  : {mean(pres_vals) if pres_vals else 0:.3f}")
