@@ -4,6 +4,8 @@
 
 A Bench for evaluating **design patent freedom-to-operate (FTO)** image retrieval systems. Each sample contains a query design patent image along with ground truth target patent images confirmed as infringing through real patent invalidation proceedings.
 
+> 🤗 **Hugging Face mirror:** [`huggingface.co/datasets/PatSnap/design-fto-bench`](https://huggingface.co/datasets/PatSnap/design-fto-bench) — same 91 samples, but all query images are embedded in a Parquet file as PIL Image objects. Loading via `load_dataset` returns ready-to-use images with no path-resolution gymnastics; the Dataset Viewer also renders thumbnails inline.
+
 ## Dataset Overview
 
 | Property | Value |

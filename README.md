@@ -22,9 +22,11 @@ PatSnap Patent Bench covers **8 capabilities across 4 directions**.
 
 | Bench | Task | Samples | Status |
 |---|---|:---:|---|
-| [**design-fto-bench**](./design-fto-bench) | Cross-modal design-patent image retrieval (product photo ↔ patent drawing) | 91 | **Released v1.1** |
-| [**novelty-search-bench**](./novelty-search-bench) | Prior-art retrieval for patent novelty search (examiner-cited X references, with cross-jurisdiction family-expanded + single-jurisdiction non-expanded tracks) | 569 | **Released v1.0** |
+| [**design-fto-bench**](./design-fto-bench) | Cross-modal design-patent image retrieval (product photo ↔ patent drawing) | 91 | **Released v1.1** · also on [🤗 HF](https://huggingface.co/datasets/PatSnap/design-fto-bench) |
+| [**novelty-search-bench**](./novelty-search-bench) | Prior-art retrieval for patent novelty search (examiner-cited X references, with cross-jurisdiction family-expanded + single-jurisdiction non-expanded tracks) | 569 | **Released v1.0** · also on [🤗 HF](https://huggingface.co/datasets/PatSnap/novelty-search-bench) |
 | *fto-bench* | Patent freedom-to-operate retrieval (derived from real litigation + FTO reports) | — | Coming Soon (Jun 2026) |
+
+> 💡 The **Hugging Face mirrors** ship a self-contained version: `novelty-search-bench` bundles every query patent's full `description` text, and `design-fto-bench` embeds all 91 query images as decoded PIL Image objects — `load_dataset(...)` gives you everything you need to run an end-to-end evaluation, no external lookup required.
 
 ### Drafting & Examination Response
 
