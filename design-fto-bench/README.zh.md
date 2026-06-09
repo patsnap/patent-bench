@@ -4,6 +4,8 @@
 
 一个面向**外观设计专利 FTO（自由实施）图像检索系统**的评估 Bench。每个样本包含一张查询外观设计专利图像，以及通过真实无效宣告程序确认构成侵权的目标专利图像作为真值。
 
+> 🤗 **Hugging Face 镜像**：[`huggingface.co/datasets/PatSnap/design-fto-bench`](https://huggingface.co/datasets/PatSnap/design-fto-bench) —— 同样的 91 条样本,但所有查询图都以 PIL Image 对象嵌入到 Parquet 中。`load_dataset` 加载后直接拿到可用的图片,无需路径解析,Dataset Viewer 也会内联渲染缩略图。
+
 ## 数据集概览
 
 | 属性 | 取值 |

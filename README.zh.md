@@ -22,9 +22,11 @@ PatSnap Patent Bench 目前覆盖 **4 个方向、8 项能力**。
 
 | Bench | 任务 | 样本数 | 状态 |
 |---|---|:---:|---|
-| [**design-fto-bench**](./design-fto-bench) | 外观设计专利跨模态图像检索（产品图 ↔ 专利图） | 91 | **已发布 v1.1** |
-| [**novelty-search-bench**](./novelty-search-bench) | 专利查新检索（审查员引用的 X 类对比文献，含跨受理局同族扩展与单受理局非扩展两类样本） | 569 | **已发布 v1.0** |
+| [**design-fto-bench**](./design-fto-bench) | 外观设计专利跨模态图像检索（产品图 ↔ 专利图） | 91 | **已发布 v1.1** · [🤗 HF 镜像](https://huggingface.co/datasets/PatSnap/design-fto-bench) |
+| [**novelty-search-bench**](./novelty-search-bench) | 专利查新检索（审查员引用的 X 类对比文献，含跨受理局同族扩展与单受理局非扩展两类样本） | 569 | **已发布 v1.0** · [🤗 HF 镜像](https://huggingface.co/datasets/PatSnap/novelty-search-bench) |
 | *fto-bench* | FTO 防侵权检索（基于真实诉讼与 FTO 报告） | — | 即将发布（2026-06） |
+
+> 💡 **Hugging Face 镜像**为自包含版本:`novelty-search-bench` 内嵌了每条查询专利的完整 `description` 说明书,`design-fto-bench` 把 91 张查询图打成 PIL Image 对象直接嵌入 Parquet —— `load_dataset(...)` 拿到的就是端到端可跑的完整数据,无需外部检索。
 
 ### 撰写与审查答复
 
