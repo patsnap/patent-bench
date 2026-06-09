@@ -115,28 +115,6 @@ The same formula `pn_x ∪ pn_family_x` applies uniformly to both sample types �
 | **top@K** | % of samples with ≥1 GT hit in top K | X-reference detection rate at K = 1, 3, 5, 10, 20, 50, 100 |
 | **Recall@K** | GT hits in top K / total GT refs | X-reference coverage rate at the same K cutoffs |
 
-### Scoring Grades
-
-Because top@K and Recall@K measure different aspects (detection vs. coverage) and operate on different scales, they are graded separately. Grade thresholds below are reference targets for cross-family-expanded scenarios (`type=family`), where the family-expanded GT amplifies the difficulty of full coverage.
-
-**top@100 (X-Detection — "did the system find any X?")**
-
-| Grade | top@100 | Description |
-|-------|---------|-------------|
-| **A** | ≥ 90% | Excellent — near-exhaustive examiner-grade detection |
-| **B** | ≥ 75% | Good — effective as a high-efficiency screening tool |
-| **C** | ≥ 50% | Acceptable — requires human review of critical cases |
-| **D** | < 50% | Below standard — model improvement needed |
-
-**Recall@100 (X-Coverage — "did the system find all X across the family?")**
-
-| Grade | Recall@100 | Description |
-|-------|------------|-------------|
-| **A** | ≥ 50% | Excellent — strong cross-family X-reference coverage |
-| **B** | ≥ 30% | Good — sufficient coverage for typical scenarios |
-| **C** | ≥ 15% | Acceptable — coverage gaps in adversarial cases |
-| **D** | < 15% | Below standard — coverage improvement needed |
-
 ## Distribution
 
 ### By Sample Type
