@@ -24,7 +24,7 @@ PatSnap Patent Bench covers **8 capabilities across 4 directions**.
 |---|---|:---:|---|
 | [**design-fto-bench**](./design-fto-bench) | Cross-modal design-patent image retrieval (product photo ↔ patent drawing) | 91 | **Released v1.1** · also on [🤗 HF](https://huggingface.co/datasets/PatSnap/design-fto-bench) |
 | [**novelty-search-bench**](./novelty-search-bench) | Prior-art retrieval for patent novelty search (examiner-cited X references, with cross-jurisdiction family-expanded + single-jurisdiction non-expanded tracks) | 569 | **Released v1.0** · also on [🤗 HF](https://huggingface.co/datasets/PatSnap/novelty-search-bench) |
-| [**fto-bench**](./fto-bench) | Patent freedom-to-operate retrieval (derived from real litigation + FTO reports) | 30 | **Released v1.0** |
+| *fto-bench* | Patent freedom-to-operate retrieval (derived from real litigation + FTO reports) | — | Coming Soon (Aug 2026) |
 
 > 💡 The **Hugging Face mirrors** ship a self-contained version: `novelty-search-bench` bundles every query patent's full `description` text, and `design-fto-bench` embeds all 91 query images as decoded PIL Image objects — `load_dataset(...)` gives you everything you need to run an end-to-end evaluation, no external lookup required.
 
@@ -56,9 +56,9 @@ All sub-Benches cover at least **CN / US / EP** jurisdictions and **CN / EN** la
 
 | Window | New Releases |
 |---|---|
-| **Jun 2026** | `novelty-search-bench`, `fto-bench` |
+| **Jun 2026** | `novelty-search-bench` |
 | **Jul 2026** | `patent-translation` |
-| **Aug 2026** | `oar-bench`, `claim-charting-bench` |
+| **Aug 2026** | `fto-bench`, `oar-bench`, `claim-charting-bench` |
 | **Sep 2026** | `drafting-bench` |
 | **Oct 2026** | `invention-disclosure-bench` |
 
@@ -72,9 +72,6 @@ patsnap/patent-bench
 ├── design-fto-bench/                     # Released v1.1
 │   ├── README.md
 │   └── data/{test.jsonl, image/}
-├── fto-bench/                            # Released v1.0
-│   ├── README.md
-│   └── data/test.jsonl
 ├── novelty-search-bench/                 # Released v1.0
 │   ├── README.md
 │   └── data/test.jsonl
