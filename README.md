@@ -24,7 +24,7 @@ PatSnap Patent Bench covers **8 capabilities across 4 directions**.
 |---|---|:---:|---|
 | [**design-fto-bench**](./design-fto-bench) | Cross-modal design-patent image retrieval (product photo ↔ patent drawing) | 91 | **Released v1.1** · also on [🤗 HF](https://huggingface.co/datasets/PatSnap/design-fto-bench) |
 | [**novelty-search-bench**](./novelty-search-bench) | Prior-art retrieval for patent novelty search (examiner-cited X references, with cross-jurisdiction family-expanded + single-jurisdiction non-expanded tracks) | 569 | **Released v1.0** · also on [🤗 HF](https://huggingface.co/datasets/PatSnap/novelty-search-bench) |
-| *fto-bench* | Patent freedom-to-operate retrieval (derived from real litigation + FTO reports) | — | Coming Soon (Jun 2026) |
+| [**fto-bench**](./fto-bench) | Patent freedom-to-operate retrieval (derived from real litigation + FTO reports) | 30 | **Released v1.0** |
 
 > 💡 The **Hugging Face mirrors** ship a self-contained version: `novelty-search-bench` bundles every query patent's full `description` text, and `design-fto-bench` embeds all 91 query images as decoded PIL Image objects — `load_dataset(...)` gives you everything you need to run an end-to-end evaluation, no external lookup required.
 
@@ -32,15 +32,15 @@ PatSnap Patent Bench covers **8 capabilities across 4 directions**.
 
 | Bench | Task | Samples | Status |
 |---|---|:---:|---|
-| *oar-bench* | Office-action response (OAR) generation | — | Coming Soon (Jul 2026) |
-| *drafting-bench* | Full patent application drafting | — | Coming Soon (Aug 2026) |
-| *invention-disclosure-bench* | Invention-disclosure drafting from user-supplied technical material | — | Coming Soon (Sep 2026) |
+| *oar-bench* | Office-action response (OAR) generation | — | Coming Soon (Aug 2026) |
+| *drafting-bench* | Full patent application drafting | — | Coming Soon (Sep 2026) |
+| *invention-disclosure-bench* | Invention-disclosure drafting from user-supplied technical material | — | Coming Soon (Oct 2026) |
 
 ### Translation
 
 | Bench | Task | Samples | Status |
 |---|---|:---:|---|
-| *translation-bench* | Patent translation with long-context, terminology, and cross-section consistency probes | — | Coming Soon (Aug 2026) |
+| [**patent-translation**](./patent-translation) | Patent translation quality (CN↔EN), covering terminology accuracy/consistency, patent writing conventions, hallucination, and omission | 2,498 | **Released v1.0** |
 
 ### Feature Comparison
 
@@ -57,9 +57,10 @@ All sub-Benches cover at least **CN / US / EP** jurisdictions and **CN / EN** la
 | Window | New Releases |
 |---|---|
 | **Jun 2026** | `novelty-search-bench`, `fto-bench` |
-| **Jul 2026** | `oar-bench` |
-| **Aug 2026** | `drafting-bench`, `translation-bench`, `claim-charting-bench` |
-| **Sep 2026** | `invention-disclosure-bench` |
+| **Jul 2026** | `patent-translation` |
+| **Aug 2026** | `oar-bench`, `claim-charting-bench` |
+| **Sep 2026** | `drafting-bench` |
+| **Oct 2026** | `invention-disclosure-bench` |
 
 Dates above are intended monthly release windows. Check the [GitHub Releases page](https://github.com/patsnap/patent-bench/releases) for actuals, and [`CHANGELOG.md`](./CHANGELOG.md) for the full per-release diff.
 
@@ -71,9 +72,15 @@ patsnap/patent-bench
 ├── design-fto-bench/                     # Released v1.1
 │   ├── README.md
 │   └── data/{test.jsonl, image/}
+├── fto-bench/                            # Released v1.0
+│   ├── README.md
+│   └── data/test.jsonl
 ├── novelty-search-bench/                 # Released v1.0
 │   ├── README.md
 │   └── data/test.jsonl
+├── patent-translation/                   # Released v1.0
+│   ├── README.md
+│   └── data/test_dataset.jsonl
 └── <other-bench>/                        # Coming Soon, per Roadmap
     ├── README.md
     └── data/...
@@ -102,6 +109,13 @@ python ../common/metrics/novelty_metrics.py \
     --dataset data/test.jsonl \
     --results your_results.json
     # add --collapsed if your retrieval results are grouped by patent family
+
+# Patent Translation — CN<->EN generation quality
+cd ../patent-translation
+python ../common/metrics/translation_metrics.py \
+    --input your_results.jsonl \
+    --direction cn2en \
+    --output result_cn2en.json
 ```
 
 > ⚠️ **Strict scoring is the default.** Both metric scripts score any

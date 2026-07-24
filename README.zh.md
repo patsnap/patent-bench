@@ -24,7 +24,7 @@ PatSnap Patent Bench 目前覆盖 **4 个方向、8 项能力**。
 |---|---|:---:|---|
 | [**design-fto-bench**](./design-fto-bench) | 外观设计专利跨模态图像检索（产品图 ↔ 专利图） | 91 | **已发布 v1.1** · [🤗 HF 镜像](https://huggingface.co/datasets/PatSnap/design-fto-bench) |
 | [**novelty-search-bench**](./novelty-search-bench) | 专利查新检索（审查员引用的 X 类对比文献，含跨受理局同族扩展与单受理局非扩展两类样本） | 569 | **已发布 v1.0** · [🤗 HF 镜像](https://huggingface.co/datasets/PatSnap/novelty-search-bench) |
-| *fto-bench* | FTO 防侵权检索（基于真实诉讼与 FTO 报告） | — | 即将发布（2026-06） |
+| [**fto-bench**](./fto-bench) | FTO 防侵权检索（基于真实诉讼与 FTO 报告） | 30 | **已发布 v1.0** |
 
 > 💡 **Hugging Face 镜像**为自包含版本:`novelty-search-bench` 内嵌了每条查询专利的完整 `description` 说明书,`design-fto-bench` 把 91 张查询图打成 PIL Image 对象直接嵌入 Parquet —— `load_dataset(...)` 拿到的就是端到端可跑的完整数据,无需外部检索。
 
@@ -32,15 +32,15 @@ PatSnap Patent Bench 目前覆盖 **4 个方向、8 项能力**。
 
 | Bench | 任务 | 样本数 | 状态 |
 |---|---|:---:|---|
-| *oar-bench* | 审查意见答复（OAR）生成 | — | 即将发布（2026-07） |
-| *drafting-bench* | 专利申请文件全文撰写 | — | 即将发布（2026-08） |
-| *invention-disclosure-bench* | 基于用户提供的技术资料生成交底书 | — | 即将发布（2026-09） |
+| *oar-bench* | 审查意见答复（OAR）生成 | — | 即将发布（2026-08） |
+| *drafting-bench* | 专利申请文件全文撰写 | — | 即将发布（2026-09） |
+| *invention-disclosure-bench* | 基于用户提供的技术资料生成交底书 | — | 即将发布（2026-10） |
 
 ### 专利翻译
 
 | Bench | 任务 | 样本数 | 状态 |
 |---|---|:---:|---|
-| *translation-bench* | 专利翻译；含长上下文、术语一致性、跨段一致性等专项检测 | — | 即将发布（2026-08） |
+| [**patent-translation**](./patent-translation) | 专利翻译质量评估（中英双向），覆盖术语准确性/一致性、专利写作规范、幻觉与漏译检测 | 2,498 | **已发布 v1.0** |
 
 ### 特征对比
 
@@ -57,9 +57,10 @@ PatSnap Patent Bench 目前覆盖 **4 个方向、8 项能力**。
 | 发布窗口 | 新增子 Bench |
 |---|---|
 | **2026-06** | `novelty-search-bench`、`fto-bench` |
-| **2026-07** | `oar-bench` |
-| **2026-08** | `drafting-bench`、`translation-bench`、`claim-charting-bench` |
-| **2026-09** | `invention-disclosure-bench` |
+| **2026-07** | `patent-translation` |
+| **2026-08** | `oar-bench`、`claim-charting-bench` |
+| **2026-09** | `drafting-bench` |
+| **2026-10** | `invention-disclosure-bench` |
 
 表中为计划月度发布窗口。实际版本以 [GitHub Releases](https://github.com/patsnap/patent-bench/releases) 为准；完整版本变更详见 [`CHANGELOG.md`](./CHANGELOG.md)。
 
@@ -71,9 +72,15 @@ patsnap/patent-bench
 ├── design-fto-bench/                     # 已发布 v1.1
 │   ├── README.md
 │   └── data/{test.jsonl, image/}
+├── fto-bench/                            # 已发布 v1.0
+│   ├── README.md
+│   └── data/test.jsonl
 ├── novelty-search-bench/                 # 已发布 v1.0
 │   ├── README.md
 │   └── data/test.jsonl
+├── patent-translation/                   # 已发布 v1.0
+│   ├── README.md
+│   └── data/test_dataset.jsonl
 └── <其他-bench>/                          # 即将发布，详见上方节奏表
     ├── README.md
     └── data/...
@@ -101,6 +108,13 @@ python ../common/metrics/novelty_metrics.py \
     --dataset data/test.jsonl \
     --results your_results.json
     # 若你的检索结果按家族折叠返回，加 --collapsed
+
+# Patent Translation —— 中英双向翻译质量评估
+cd ../patent-translation
+python ../common/metrics/translation_metrics.py \
+    --input your_results.jsonl \
+    --direction cn2en \
+    --output result_cn2en.json
 ```
 
 > ⚠️ **默认按 leaderboard 严格口径打分。** 两个指标脚本默认把 results 里没出现的样本当作 0 分计算，分母始终是数据集的全量大小 —— 所以只交一部分样本是刷不出虚高分数的。本地调试时可以加 `--allow-partial` 跳过缺失样本；但要上 leaderboard 的数字必须用默认严格口径跑出来。

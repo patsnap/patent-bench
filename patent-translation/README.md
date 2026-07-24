@@ -1,3 +1,19 @@
+---
+language:
+  - zh
+  - en
+license: cc-by-nc-4.0
+task_categories:
+  - translation
+tags:
+  - patent
+  - machine-translation
+  - chinese
+  - english
+size_categories:
+  - 1K<n<10K
+---
+
 # PatSnap Patent Translation Bench
 
 **English** | [中文](./README.zh.md)
